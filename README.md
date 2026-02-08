@@ -12,7 +12,7 @@ You write a function that charges a credit card, sends an email, or creates a da
 - The request times out
 - The caller retries
 - The function runs again
-- **The user gets charged twice** 💀
+- **The user gets charged twice**
 
 APIs claim to be idempotent, but they often aren't. This library makes idempotency **automatic and declarative** at the function level.
 
@@ -78,7 +78,7 @@ result = create_invoice(user_id=2, amount=200.0)
 └─────────────────────────────────────────────────────────┘
 ```
 
-**Key insight:** The library tracks execution state (`in_progress`, `completed`, `failed`), not just results. This prevents race conditions and handles crashes gracefully.
+The library tracks execution state (`in_progress`, `completed`, `failed`), not just results. This prevents race conditions and handles crashes gracefully.
 
 ## Storage Backends
 
@@ -326,7 +326,7 @@ The overhead is negligible compared to typical side effects (API calls, database
 
 **Not supported:**
 - Windows file locking (FileStore uses `fcntl`, POSIX only)
-- Async functions (coming in Phase 3)
+- Async functions (coming soon)
 - Distributed transactions across multiple functions
 - Automatic retry logic (use `tenacity` for that)
 
@@ -368,10 +368,6 @@ Contributions welcome! Please:
 3. Update documentation
 4. Add examples for new functionality
 
-## License
-
-MIT License - see [LICENSE](LICENSE) file for details.
-
 ## Why This Library Exists
 
 Most systems rely on:
@@ -386,8 +382,4 @@ This library provides a **missing middle layer** between business logic and infr
 Inspired by:
 - Stripe's idempotency implementation
 - The need for better webhook handling
-- Too many production incidents from duplicate charges
-
----
-
-**Made with ❤️ for backend engineers who are tired of duplicate side effects.**
+- Too many production incidents from duplicate processing
