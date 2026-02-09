@@ -23,7 +23,7 @@ classifiers = [
 ]
 
 [project.optional-dependencies]
-redis = ["redis>=4.0.0"]
+redis = ["redis (>=7.1.1,<8.0.0)"]
 file = ["filelock>=3.0.0"]
 dev = [
     "pytest>=7.0.0",
