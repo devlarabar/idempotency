@@ -1,6 +1,7 @@
 # Idempotency Guard - Architecture & Plan
 
-> A function-level idempotency guard that prevents duplicate side effects caused by retries, race conditions, or replayed events.
+> A function-level idempotency guard that prevents duplicate side effects caused
+> by retries, race conditions, or replayed events.
 
 ## Core Concept
 
@@ -112,51 +113,33 @@ async def create_invoice(user_id, amount): ...
 
 ```
 idempotency/
-├── __init__.py          # public API exports
-├── decorator.py         # @idempotent implementation
-├── key.py               # key generation logic
-├── record.py            # Record dataclass
-├── exceptions.py        # DuplicateExecutionError, LockTimeout, etc.
 ├── stores/
 │   ├── __init__.py
 │   ├── base.py          # Store protocol/ABC
 │   ├── memory.py        # MemoryStore (dict + threading.Lock)
 │   ├── file.py          # FileStore (JSON files + file locks)
 │   └── redis.py         # RedisStore (Redis + Lua scripts)
-└── _async.py            # async-specific utilities
+├── __init__.py          # public API exports
+├── decorator.py         # @idempotent implementation
+├── key.py               # key generation logic
+├── record.py            # Record dataclass
+└── exceptions.py        # Custom exceptions for the library
 ```
 
 ---
 
-## Task List
+## To-Do
 
-### Phase 1: Core (MVP)
-- [ ] Project setup (pyproject.toml, pytest, ruff)
-- [ ] `Record` dataclass
-- [ ] `exceptions` module
-- [ ] `key` generation (function name + normalized args)
-- [ ] `Store` protocol/ABC
-- [ ] `MemoryStore` implementation
-- [ ] `@idempotent` decorator (sync only, `on_duplicate="return"`)
-- [ ] Basic tests
-
-### Phase 2: Storage Backends
-- [ ] `FileStore` with file locking
-- [ ] `RedisStore` with atomic operations
-- [ ] Backend-specific tests
-
-### Phase 3: Advanced Features
+### Advanced Features
 - [ ] `on_duplicate="raise"` and `"wait"` modes
 - [ ] `on_failure="lock"` mode
 - [ ] Crash recovery (heartbeat + timeout takeover)
 - [ ] Custom `key` function support
 - [ ] Async support (`async def` detection + async stores)
 
-### Phase 4: Polish
+### Polish
 - [ ] Comprehensive edge case tests
-- [ ] Type hints + py.typed
 - [ ] Documentation (README, docstrings)
-- [ ] Examples directory
 - [ ] CI/CD setup
 
 ---
