@@ -48,6 +48,7 @@ Thumbs.db
 
 # Idempotency test files
 /tmp/
+/local_testing/
 *.lock
 
 # Agents and AI tools
