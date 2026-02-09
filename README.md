@@ -1,11 +1,14 @@
-# Idempotency Guard
+
+<img width="1394" height="378" alt="Screenshot 2026-02-09 at 8 54 09 AM" src="https://github.com/user-attachments/assets/9bde6e52-4deb-4a6d-8343-5cbfd7ccadb0" />
+
+# Idempotency
 
 > A function-level idempotency guard that prevents duplicate side effects caused by retries, race conditions, or replayed events.
 
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## The Problem
+## 🛑 The Problem
 
 You write a function that charges a credit card, sends an email, or creates a database record. Then:
 
@@ -16,7 +19,7 @@ You write a function that charges a credit card, sends an email, or creates a da
 
 APIs claim to be idempotent, but they often aren't. This library makes idempotency **automatic and declarative** at the function level.
 
-## What This Is (and Isn't)
+## 🟢 What This Is (and Isn't)
 
 | This Library | Not This |
 |--------------|----------|
@@ -28,7 +31,7 @@ APIs claim to be idempotent, but they often aren't. This library makes idempoten
 
 **Don't use this for:** Speeding up pure functions (use `functools.lru_cache` instead)
 
-## Installation
+## 📥 Installation
 
 ```bash
 pip install idempotency-guard
@@ -44,7 +47,7 @@ pip install idempotency-guard[redis]
 pip install idempotency-guard[dev]
 ```
 
-## Quick Start
+## 🏁 Quick Start
 
 ```python
 from idempotency import idempotent
@@ -65,7 +68,7 @@ result = create_invoice(user_id=1, amount=100.0)  # No charge, no email!
 result = create_invoice(user_id=2, amount=200.0)
 ```
 
-## How It Works
+## 📖 How It Works
 
 ```
 ┌─────────────────────────────────────────────────────────┐
@@ -80,7 +83,7 @@ result = create_invoice(user_id=2, amount=200.0)
 
 The library tracks execution state (`in_progress`, `completed`, `failed`), not just results. This prevents race conditions and handles crashes gracefully.
 
-## Storage Backends
+## 🪣 Storage Backends
 
 Choose the right store for your deployment:
 
@@ -138,7 +141,7 @@ def my_function():
 - Built-in TTL support
 - Safe for distributed systems
 
-## Configuration Options
+## 🛠️ Configuration Options
 
 ### TTL (Time-to-Live)
 
@@ -203,7 +206,7 @@ def critical_operation():
     ...
 ```
 
-## Real-World Examples
+## 💻 Real-World Examples
 
 ### Webhook Handler
 
@@ -265,7 +268,7 @@ def create_order(user_id: int, items: list, idempotency_key: str):
     return {"order_id": order.id, "total": order.total}
 ```
 
-## Error Handling
+## 🔺 Error Handling
 
 The decorator preserves exception types and re-raises them:
 
@@ -282,7 +285,7 @@ except ValueError as e:
 
 By default, failures unlock the operation so it can be retried. Use `on_failure="lock"` to make failures idempotent too.
 
-## Testing
+## ⚙️ Testing
 
 The library includes utilities for testing:
 
@@ -306,7 +309,7 @@ def test_my_function():
     store.clear()
 ```
 
-## Performance
+## 📈 Performance
 
 **MemoryStore:**
 - ~0.1ms overhead per call
@@ -322,7 +325,7 @@ def test_my_function():
 
 The overhead is negligible compared to typical side effects (API calls, database writes, emails).
 
-## Limitations
+## 🔶 Limitations
 
 **Not supported:**
 - Windows file locking (FileStore uses `fcntl`, POSIX only)
@@ -335,12 +338,12 @@ The overhead is negligible compared to typical side effects (API calls, database
 - TTL is required (prevents permanent locks)
 - Not a replacement for database transactions
 
-## Development
+## 🖥️ Development
 
 ```bash
 # Clone the repo
-git clone https://github.com/yourusername/idempotency-guard.git
-cd idempotency-guard
+git clone https://github.com/yourusername/idempotency.git
+cd idempotency
 
 # Create virtual environment
 python -m venv venv
@@ -359,7 +362,7 @@ ruff check .
 mypy idempotency
 ```
 
-## Contributing
+## 🤝 Contributing
 
 Contributions welcome! Please:
 
@@ -368,7 +371,7 @@ Contributions welcome! Please:
 3. Update documentation
 4. Add examples for new functionality
 
-## Why This Library Exists
+## 💭 Why This Library Exists
 
 Most systems rely on:
 - API idempotency headers (external, caller-dependent)
@@ -376,10 +379,3 @@ Most systems rely on:
 - Hope (not a strategy)
 
 This library provides a **missing middle layer** between business logic and infrastructure guarantees. It makes idempotency a first-class concept with a clean, declarative API.
-
-## Acknowledgments
-
-Inspired by:
-- Stripe's idempotency implementation
-- The need for better webhook handling
-- Too many production incidents from duplicate processing
