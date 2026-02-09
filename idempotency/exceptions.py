@@ -4,11 +4,9 @@
 class IdempotencyError(Exception):
     """Base exception for idempotency-related errors."""
 
-    pass
-
 
 class DuplicateExecutionError(IdempotencyError):
-    """Raised when a duplicate execution is detected and on_duplicate='raise'."""
+    """Raise when a duplicate execution is detected and on_duplicate='raise'."""
 
     def __init__(self, key: str) -> None:
         self.key = key
@@ -16,7 +14,7 @@ class DuplicateExecutionError(IdempotencyError):
 
 
 class LockTimeoutError(IdempotencyError):
-    """Raised when unable to acquire lock within timeout."""
+    """Raise when unable to acquire lock within timeout."""
 
     def __init__(self, key: str, timeout: float) -> None:
         self.key = key
@@ -27,7 +25,7 @@ class LockTimeoutError(IdempotencyError):
 
 
 class SerializationError(IdempotencyError):
-    """Raised when result cannot be serialized."""
+    """Raise when result cannot be serialized."""
 
     def __init__(self, value: object, reason: str) -> None:
         self.value = value

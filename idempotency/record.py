@@ -2,6 +2,7 @@
 
 import time
 from dataclasses import dataclass, field
+from typing import Literal
 
 
 @dataclass
@@ -19,7 +20,7 @@ class Record:
     """
 
     key: str
-    status: str  # "in_progress" | "completed" | "failed"
+    status: Literal["in_progress", "completed", "failed"]
     started_at: float = field(default_factory=time.time)
     completed_at: float | None = None
     heartbeat: float = field(default_factory=time.time)
@@ -44,13 +45,13 @@ class Record:
         return cls(
             key=str(data["key"]),
             status=str(data["status"]),
-            started_at=float(data["started_at"]),  # type: ignore
+            started_at=float(data["started_at"]),
             completed_at=(
-                float(data["completed_at"])  # type: ignore
+                float(data["completed_at"])
                 if data.get("completed_at")
                 else None
             ),
-            heartbeat=float(data["heartbeat"]),  # type: ignore
+            heartbeat=float(data["heartbeat"]),
             result=data.get("result"),
             error=str(data["error"]) if data.get("error") else None,
         )

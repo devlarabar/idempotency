@@ -2,13 +2,11 @@
 
 import json
 import time
-from typing import TYPE_CHECKING
+
+from redis import Redis
 
 from ..record import Record
 from .base import Store
-
-if TYPE_CHECKING:
-    from redis import Redis
 
 
 class RedisStore(Store):
@@ -22,7 +20,7 @@ class RedisStore(Store):
         prefix: Key prefix for namespacing (default: "idempotency:")
     """
 
-    def __init__(self, client: "Redis", prefix: str = "idempotency:") -> None:
+    def __init__(self, client: Redis, prefix: str = "idempotency:") -> None:
         self.client = client
         self.prefix = prefix
 
@@ -83,9 +81,7 @@ class RedisStore(Store):
         while True:
             # Try to acquire lock atomically
             # SET NX EX: set if not exists with expiration
-            acquired = self.client.set(
-                lock_key, "1", nx=True, ex=lock_ttl
-            )
+            acquired = self.client.set(lock_key, "1", nx=True, ex=lock_ttl)
 
             if acquired:
                 return True

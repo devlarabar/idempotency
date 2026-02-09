@@ -44,14 +44,11 @@ def idempotent(
     """
     if on_duplicate not in ("return", "raise", "wait"):
         raise ValueError(
-            f"on_duplicate must be 'return', 'raise', or 'wait', "
-            f"got '{on_duplicate}'"
+            f"on_duplicate must be 'return', 'raise', or 'wait', got '{on_duplicate}'"
         )
 
     if on_failure not in ("unlock", "lock"):
-        raise ValueError(
-            f"on_failure must be 'unlock' or 'lock', got '{on_failure}'"
-        )
+        raise ValueError(f"on_failure must be 'unlock' or 'lock', got '{on_failure}'")
 
     # Use default store if none provided
     _store = store or MemoryStore()
@@ -60,7 +57,7 @@ def idempotent(
         @functools.wraps(func)
         def wrapper(*args: object, **kwargs: object) -> object:
             # Generate idempotency key
-            idem_key = generate_key(func, args, kwargs, key)
+            idem_key = generate_key(func, args, kwargs, custom_key_func=key)
 
             # Check if operation already exists
             existing = _store.get(idem_key)
@@ -173,7 +170,7 @@ def idempotent(
                 # Always release lock
                 _store.release_lock(idem_key)
 
-        return wrapper  # type: ignore
+        return wrapper
 
     return decorator
 

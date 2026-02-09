@@ -7,12 +7,13 @@ They will be skipped if Redis is not available.
 import time
 
 import pytest
+from redis import Redis
+from redis.exceptions import ConnectionError as RedisConnectionError
 
 from idempotency.record import Record
 
 # Try to import redis and RedisStore
 try:
-    import redis
 
     from idempotency.stores import RedisStore
 
@@ -34,7 +35,7 @@ def redis_client():
         pytest.skip("Redis not available")
 
     try:
-        client = redis.Redis(
+        client = Redis(
             host="localhost", port=6379, db=15, decode_responses=False
         )
         # Test connection
@@ -43,7 +44,7 @@ def redis_client():
         # Cleanup
         client.flushdb()
         client.close()
-    except redis.ConnectionError:
+    except RedisConnectionError:
         pytest.skip("Redis server not running")
 
 
