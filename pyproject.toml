@@ -1,16 +1,17 @@
 [build-system]
-requires = ["setuptools>=61.0"]
+requires = [
+    "setuptools>=61.0",
+]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "idempotency"
-version = "0.0.1"
+version = "0.1.0"
 description = "A function-level idempotency guard that prevents duplicate side effects"
 readme = "README.md"
 requires-python = ">=3.10"
-license = {text = "MIT"}
 authors = [
-    {name = "Lara S.A.", email = "lsalsham@hotmail.com"}
+    { name = "Lara S.A.", email = "lsalsham@hotmail.com" },
 ]
 classifiers = [
     "Development Status :: 3 - Alpha",
@@ -22,9 +23,16 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
 ]
 
+[project.license]
+text = "MIT"
+
 [project.optional-dependencies]
-redis = ["redis>=7.1.1,<8.0.0"]
-file = ["filelock>=3.0.0"]
+redis = [
+    "redis>=7.1.1,<8.0.0",
+]
+file = [
+    "filelock>=3.0.0",
+]
 dev = [
     "pytest>=7.0.0",
     "pytest-asyncio>=0.21.0",
@@ -33,15 +41,26 @@ dev = [
 ]
 
 [tool.setuptools.packages.find]
-where = ["."]
-include = ["idempotency*"]
+where = [
+    ".",
+]
+include = [
+    "idempotency*",
+]
 
 [tool.ruff]
 line-length = 88
 target-version = "py310"
 
 [tool.ruff.lint]
-select = ["E", "F", "I", "N", "W", "UP"]
+select = [
+    "E",
+    "F",
+    "I",
+    "N",
+    "W",
+    "UP",
+]
 ignore = []
 
 [tool.mypy]
@@ -51,8 +70,16 @@ warn_unused_configs = true
 disallow_untyped_defs = true
 
 [tool.pytest.ini_options]
-testpaths = ["tests"]
-python_files = ["test_*.py"]
-python_classes = ["Test*"]
-python_functions = ["test_*"]
+testpaths = [
+    "tests",
+]
+python_files = [
+    "test_*.py",
+]
+python_classes = [
+    "Test*",
+]
+python_functions = [
+    "test_*",
+]
 asyncio_mode = "auto"
