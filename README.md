@@ -17,13 +17,14 @@ You write a function that charges a credit card, sends an email, or creates a da
 - The function runs again
 - **The user gets charged twice**
 
-APIs claim to be idempotent, but they often aren't. This library makes
-idempotency **automatic and declarative** at the function level.
+The issue is, most systems rely on:
 
-Most systems rely on:
 - API idempotency headers (external, caller-dependent)
 - Manual guards scattered everywhere (inconsistent, error-prone)
 - Hope (not a strategy)
+
+APIs claim to be idempotent, but they often aren't. This library makes
+idempotency **automatic and declarative** at the function level.
 
 ## 🟢 What This Is (and Isn't)
 
