@@ -34,17 +34,17 @@ APIs claim to be idempotent, but they often aren't. This library makes idempoten
 ## 📥 Installation
 
 ```bash
-pip install idempotency-guard
+pip install idempotency
 ```
 
 **Optional dependencies:**
 
 ```bash
 # For Redis support
-pip install idempotency-guard[redis]
+pip install idempotency[redis]
 
 # For development
-pip install idempotency-guard[dev]
+pip install idempotency[dev]
 ```
 
 ## 🏁 Quick Start
@@ -309,48 +309,15 @@ def test_my_function():
     store.clear()
 ```
 
-## 📈 Performance
-
-**MemoryStore:**
-- ~0.1ms overhead per call
-- Thread-safe with minimal locking
-
-**FileStore:**
-- ~1-5ms overhead (disk I/O)
-- Safe for multi-process scenarios
-
-**RedisStore:**
-- ~1-3ms overhead (network + Redis)
-- Scales horizontally
-
-The overhead is negligible compared to typical side effects (API calls, database writes, emails).
-
-## 🔶 Limitations
-
-**Not supported:**
-- Windows file locking (FileStore uses `fcntl`, POSIX only)
-- Async functions (coming soon)
-- Distributed transactions across multiple functions
-- Automatic retry logic (use `tenacity` for that)
-
-**By design:**
-- Results must be JSON-serializable (or use `on_duplicate="raise"`)
-- TTL is required (prevents permanent locks)
-- Not a replacement for database transactions
-
 ## 🖥️ Development
 
 ```bash
 # Clone the repo
-git clone https://github.com/yourusername/idempotency.git
+git clone https://github.com/devlarabar/idempotency.git
 cd idempotency
 
-# Create virtual environment
-python -m venv venv
-source venv/bin/activate  # or `venv\Scripts\activate` on Windows
-
 # Install dev dependencies
-pip install -e ".[dev]"
+poetry install --with dev
 
 # Run tests
 pytest
