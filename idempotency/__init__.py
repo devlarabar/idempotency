@@ -19,8 +19,6 @@ from .exceptions import (
 )
 from .stores import MemoryStore, Store
 
-__version__ = "0.1.0"
-
 __all__ = [
     "idempotent",
     "IdempotencyError",
