@@ -4,6 +4,8 @@ import time
 from dataclasses import dataclass, field
 from typing import Literal
 
+from idempotency.utils import ensure_float
+
 
 @dataclass
 class Record:
@@ -42,16 +44,20 @@ class Record:
     @classmethod
     def from_dict(cls, data: dict[str, object]) -> "Record":
         """Create record from dictionary."""
+        status = data["status"]
+        if status not in ("in_progress", "completed", "failed"):
+            raise ValueError(f"Invalid status: {status}")
+
+        started_at = ensure_float(value=data["started_at"])
+        completed_at = ensure_float(value=data.get("completed_at"), default=None)
+        heartbeat = ensure_float(value=data["heartbeat"])
+
         return cls(
             key=str(data["key"]),
-            status=str(data["status"]),
-            started_at=float(data["started_at"]),
-            completed_at=(
-                float(data["completed_at"])
-                if data.get("completed_at")
-                else None
-            ),
-            heartbeat=float(data["heartbeat"]),
+            status=status,  # type: ignore[arg-type]
+            started_at=started_at,
+            completed_at=completed_at,
+            heartbeat=heartbeat,
             result=data.get("result"),
             error=str(data["error"]) if data.get("error") else None,
         )
