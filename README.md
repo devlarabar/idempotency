@@ -17,9 +17,17 @@ You write a function that charges a credit card, sends an email, or creates a da
 - The function runs again
 - **The user gets charged twice**
 
-APIs claim to be idempotent, but they often aren't. This library makes idempotency **automatic and declarative** at the function level.
+APIs claim to be idempotent, but they often aren't. This library makes
+idempotency **automatic and declarative** at the function level.
+
+Most systems rely on:
+- API idempotency headers (external, caller-dependent)
+- Manual guards scattered everywhere (inconsistent, error-prone)
+- Hope (not a strategy)
 
 ## 🟢 What This Is (and Isn't)
+
+This library provides a **missing middle layer** between business logic and infrastructure guarantees. It makes idempotency a first-class concept with a clean, declarative API.
 
 | This Library | Not This |
 |--------------|----------|
@@ -337,12 +345,3 @@ Contributions welcome! Please:
 2. Follow existing code style (ruff + mypy)
 3. Update documentation
 4. Add examples for new functionality
-
-## 💭 Why This Library Exists
-
-Most systems rely on:
-- API idempotency headers (external, caller-dependent)
-- Manual guards scattered everywhere (inconsistent, error-prone)
-- Hope (not a strategy)
-
-This library provides a **missing middle layer** between business logic and infrastructure guarantees. It makes idempotency a first-class concept with a clean, declarative API.
