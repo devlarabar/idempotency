@@ -3,14 +3,14 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "idempotency-guard"
+name = "idempotency"
 version = "0.1.0"
 description = "A function-level idempotency guard that prevents duplicate side effects"
 readme = "README.md"
 requires-python = ">=3.10"
 license = {text = "MIT"}
 authors = [
-    {name = "Lara", email = "lara@example.com"}
+    {name = "Lara S.A.", email = "lsalsham@hotmail.com"}
 ]
 classifiers = [
     "Development Status :: 3 - Alpha",
@@ -23,7 +23,7 @@ classifiers = [
 ]
 
 [project.optional-dependencies]
-redis = ["redis (>=7.1.1,<8.0.0)"]
+redis = ["redis>=7.1.1,<8.0.0"]
 file = ["filelock>=3.0.0"]
 dev = [
     "pytest>=7.0.0",
