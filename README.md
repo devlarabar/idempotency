@@ -1,5 +1,5 @@
 
-<img width="1394" height="378" alt="Screenshot 2026-02-09 at 8 54 09 AM" src="https://github.com/user-attachments/assets/9bde6e52-4deb-4a6d-8343-5cbfd7ccadb0" />
+<img alt="Idempotency Library Banner" src="https://github.com/user-attachments/assets/9bde6e52-4deb-4a6d-8343-5cbfd7ccadb0" />
 
 # Idempotency
 
